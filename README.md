@@ -24,7 +24,7 @@ Full-stack DBMS project for an academic conference, handling participant registr
 
 ## Viewing Live Database in MySQL Workbench
 1. Open **MySQL Workbench**.
-2. Connect to **Local instance MySQL80** using password `KKkshitiz1893$@`.
+2. Connect to **Local instance MySQL80** using password `dbpasaword`.
 3. In the left **Navigator** pane under **Schemas**, expand `conference_db` -> `Tables`.
 4. Right-click any table (`participants`, `papers`, `reviews`, `sessions`, `certificates`) and select **Select Rows - Limit 1000**.
 5. Submit forms in the web app and click the **Lightning Bolt ⚡** in Workbench to watch updates appear in real-time.
