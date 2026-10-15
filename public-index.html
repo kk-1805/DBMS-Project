@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICRAS 2026 — International Conference Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <!-- LEFT SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="brand-tag">UNIVERSITY SYMPOSIUM</span>
+                    <h1 class="brand-title">ICRAS 2026</h1>
+                </div>
+            </div>
+
+            <div class="nav-group-label">CONFERENCE WORKFLOW</div>
+            <nav class="side-nav">
+                <button class="nav-item active" onclick="switchTab('registration', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M19 8v6M22 11h-6"/>
+                    </svg>
+                    <span>Participant Registration</span>
+                    <span class="nav-count" id="nav-count-participants">0</span>
+                </button>
+
+                <button class="nav-item" onclick="switchTab('papers', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    <span>Paper Submissions</span>
+                    <span class="nav-count" id="nav-count-papers">0</span>
+                </button>
+
+                <button class="nav-item" onclick="switchTab('reviews', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4"/>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                    <span>Reviews & Sessions</span>
+                    <span class="nav-count" id="nav-count-reviews">0</span>
+                </button>
+
+                <button class="nav-item" onclick="switchTab('certificates', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="6"/>
+                        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+                    </svg>
+                    <span>Certificates</span>
+                    <span class="nav-count" id="nav-count-certificates">0</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="event-card">
+                    <div class="event-dot"></div>
+                    <div>
+                        <p class="event-title">Annual Research Congress</p>
+                        <p class="event-sub">Nov 18–19, 2026 • Main Campus</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN WORKSPACE -->
+        <div class="main-area">
+            <!-- TOP BAR -->
+            <header class="topbar">
+                <div>
+                    <h2 class="page-heading" id="topbar-title">Participant Registration</h2>
+                    <p class="page-subheading" id="topbar-subtitle">Enroll authors, peer review committee members, and conference attendees</p>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" id="global-search" placeholder="Filter records..." oninput="filterCurrentTable()">
+                    </div>
+                    <button class="btn-secondary-top" onclick="openSessionModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        <span>+ Schedule Session</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- KPI METRIC CARDS -->
+            <section class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon indigo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="kpi-label">Registered Delegates</span>
+                        <h3 class="kpi-value" id="stat-participants">0</h3>
+                        <span class="kpi-meta" id="stat-role-breakdown">0 Authors • 0 Reviewers</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="kpi-label">Manuscripts Submitted</span>
+                        <h3 class="kpi-value" id="stat-papers">0</h3>
+                        <span class="kpi-meta" id="stat-pending-papers">0 awaiting evaluation</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon emerald">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="kpi-label">Accepted & Scheduled</span>
+                        <h3 class="kpi-value" id="stat-accepted">0</h3>
+                        <span class="kpi-meta" id="stat-sessions-count">Across 0 presentation tracks</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon amber">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="6"/>
+                            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="kpi-label">Certificates Issued</span>
+                        <h3 class="kpi-value" id="stat-certificates">0</h3>
+                        <span class="kpi-meta">Verified digital credentials</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WORKSPACE PANELS -->
+            <main class="workspace">
+                <!-- TAB 1: PARTICIPANT REGISTRATION -->
+                <section id="tab-registration" class="tab-panel active">
+                    <div class="split-layout">
+                        <div class="panel-card form-panel">
+                            <div class="panel-header">
+                                <h3>New Delegate Registration</h3>
+                                <p>Enter participant credentials and assign their conference role.</p>
+                            </div>
+                            <form id="form-participant">
+                                <div class="field">
+                                    <label>Full Name & Academic Title</label>
+                                    <input type="text" name="full_name" placeholder="e.g., Dr. Aarav Mehta" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>Institutional Email</label>
+                                    <input type="email" name="email" placeholder="aarav.mehta@university.edu" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>University / Organization Affiliation</label>
+                                    <input type="text" name="affiliation" placeholder="e.g., Indian Institute of Technology" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>Select Conference Role</label>
+                                    <div class="role-selector">
+                                        <label class="role-card">
+                                            <input type="radio" name="role" value="Author" checked required>
+                                            <span class="role-card-body">
+                                                <strong>Author</strong>
+                                                <small>Submits & presents papers</small>
+                                            </span>
+                                        </label>
+                                        <label class="role-card">
+                                            <input type="radio" name="role" value="Reviewer">
+                                            <span class="role-card-body">
+                                                <strong>Reviewer</strong>
+                                                <small>Evaluates manuscripts</small>
+                                            </span>
+                                        </label>
+                                        <label class="role-card">
+                                            <input type="radio" name="role" value="Attendee">
+                                            <span class="role-card-body">
+                                                <strong>Attendee</strong>
+                                                <small>General audience pass</small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-submit">
+                                    <span>Complete Registration</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="panel-card table-panel">
+                            <div class="table-header-bar">
+                                <div>
+                                    <h3>Registered Conference Directory</h3>
+                                    <p>All enrolled authors, committee reviewers, and attendees</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Participant</th>
+                                            <th>Institution / Affiliation</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-participants"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: PAPER SUBMISSIONS -->
+                <section id="tab-papers" class="tab-panel">
+                    <div class="split-layout">
+                        <div class="panel-card form-panel">
+                            <div class="panel-header">
+                                <h3>Submit Research Manuscript</h3>
+                                <p>Assign a registered author and research domain track.</p>
+                            </div>
+                            <form id="form-paper">
+                                <div class="field">
+                                    <label>Manuscript Title</label>
+                                    <input type="text" name="title" placeholder="e.g., Adaptive Fuzzy Control for Autonomous Microgrids" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>Research Domain Track</label>
+                                    <select name="research_track" required>
+                                        <option value="" disabled selected>Select Research Track</option>
+                                        <option value="Artificial Intelligence & ML">Artificial Intelligence & Machine Learning</option>
+                                        <option value="Control Systems & Robotics">Control Systems & Robotics</option>
+                                        <option value="Data Science & Cloud Computing">Data Science & Cloud Computing</option>
+                                        <option value="Sustainable Energy & Smart Grids">Sustainable Energy & Smart Grids</option>
+                                    </select>
+                                </div>
+
+                                <div class="field">
+                                    <label>Corresponding Author</label>
+                                    <select name="author_id" id="select-author" required>
+                                        <option value="" disabled selected>Select Registered Author</option>
+                                    </select>
+                                </div>
+
+                                <div class="field">
+                                    <label>Executive Abstract</label>
+                                    <textarea name="abstract" rows="4" placeholder="Summarize research objectives, methodology, and principal findings..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-submit">
+                                    <span>Submit Manuscript</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="panel-card table-panel">
+                            <div class="table-header-bar">
+                                <div>
+                                    <h3>Manuscripts & Presentation Schedule</h3>
+                                    <p>Live status of submitted papers and assigned presentation rooms</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Manuscript & Track</th>
+                                            <th>Author</th>
+                                            <th>Status</th>
+                                            <th>Assigned Session</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-papers"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: PEER REVIEWS & SESSION ASSIGNMENT -->
+                <section id="tab-reviews" class="tab-panel">
+                    <div class="split-layout">
+                        <div class="panel-card form-panel">
+                            <div class="panel-header">
+                                <h3>Peer Review & Track Assignment</h3>
+                                <p>Grade manuscripts and assign accepted papers to a session room.</p>
+                            </div>
+                            <form id="form-review">
+                                <div class="field">
+                                    <label>Manuscript Under Review</label>
+                                    <select name="paper_id" id="select-paper" required>
+                                        <option value="" disabled selected>Choose Submitted Paper</option>
+                                    </select>
+                                </div>
+
+                                <div class="field">
+                                    <label>Review Committee Member</label>
+                                    <select name="reviewer_id" id="select-reviewer" required>
+                                        <option value="" disabled selected>Choose Reviewer</option>
+                                    </select>
+                                </div>
+
+                                <div class="field">
+                                    <div class="slider-header">
+                                        <label>Technical Merit Score</label>
+                                        <span class="score-pill" id="score-display">8 / 10</span>
+                                    </div>
+                                    <input type="range" name="score" id="score-slider" min="1" max="10" value="8" oninput="document.getElementById('score-display').textContent = this.value + ' / 10'">
+                                </div>
+
+                                <div class="field">
+                                    <label>Committee Decision</label>
+                                    <div class="decision-selector">
+                                        <label class="decision-card accept">
+                                            <input type="radio" name="decision" value="Accept" checked onchange="toggleSessionBox(true)">
+                                            <span>✓ Accept Manuscript</span>
+                                        </label>
+                                        <label class="decision-card reject">
+                                            <input type="radio" name="decision" value="Reject" onchange="toggleSessionBox(false)">
+                                            <span>✕ Reject Manuscript</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="field" id="session-field-group">
+                                    <label>Assign Presentation Session</label>
+                                    <select name="session_id" id="select-session">
+                                        <option value="">Select Presentation Track & Room</option>
+                                    </select>
+                                </div>
+
+                                <div class="field">
+                                    <label>Evaluation Remarks</label>
+                                    <textarea name="comments" rows="3" placeholder="Provide technical feedback and observations..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-submit">
+                                    <span>Record Evaluation</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="panel-card table-panel">
+                            <div class="table-header-bar">
+                                <div>
+                                    <h3>Completed Peer Evaluations</h3>
+                                    <p>Committee scores, reviewer comments, and acceptance outcomes</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Manuscript</th>
+                                            <th>Reviewer</th>
+                                            <th>Score</th>
+                                            <th>Remarks</th>
+                                            <th>Decision</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-reviews"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 4: CERTIFICATES -->
+                <section id="tab-certificates" class="tab-panel">
+                    <div class="split-layout">
+                        <div class="panel-card form-panel">
+                            <div class="panel-header">
+                                <h3>Issue Official Certificate</h3>
+                                <p>Generate verifiable credentials for presenters, reviewers, and attendees.</p>
+                            </div>
+                            <form id="form-certificate">
+                                <div class="field">
+                                    <label>Select Recipient</label>
+                                    <select name="participant_id" id="select-cert-participant" required>
+                                        <option value="" disabled selected>Choose Registered Participant</option>
+                                    </select>
+                                </div>
+
+                                <div class="field">
+                                    <label>Certificate Category</label>
+                                    <select name="certificate_type" required>
+                                        <option value="Paper Presentation">Certificate of Paper Presentation</option>
+                                        <option value="Peer Review Committee">Certificate of Peer Review Service</option>
+                                        <option value="Conference Participation">Certificate of Conference Participation</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn-submit">
+                                    <span>Generate Certificate</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="panel-card table-panel">
+                            <div class="table-header-bar">
+                                <div>
+                                    <h3>Issued Certificates Registry</h3>
+                                    <p>Click "View Diploma" to preview or print the official certificate</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Credential ID</th>
+                                            <th>Recipient</th>
+                                            <th>Category</th>
+                                            <th>Issued On</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-certificates"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL 1: SCHEDULE NEW PRESENTATION SESSION -->
+    <div id="session-modal" class="modal-backdrop hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div>
+                    <h3>Schedule Presentation Session</h3>
+                    <p>Add a new conference track and room for accepted papers</p>
+                </div>
+                <button class="icon-close" onclick="closeSessionModal()">✕</button>
+            </div>
+            <form id="form-session">
+                <div class="field">
+                    <label>Session Track Title</label>
+                    <input type="text" name="session_title" placeholder="e.g., Track E: Cybersecurity & Blockchain" required>
+                </div>
+                <div class="field">
+                    <label>Venue / Auditorium Room</label>
+                    <input type="text" name="room_no" placeholder="e.g., Research Hall 102" required>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label>Session Date</label>
+                        <input type="date" name="session_date" value="2026-11-18" required>
+                    </div>
+                    <div class="field">
+                        <label>Start Time</label>
+                        <input type="time" name="start_time" value="15:00" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-ghost" onclick="closeSessionModal()">Cancel</button>
+                    <button type="submit" class="btn-submit" style="width:auto; margin:0;">Save Session Track</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: PRINTABLE PRESTIGE ACADEMIC CERTIFICATE -->
+    <div id="cert-modal" class="modal-backdrop hidden">
+        <div class="diploma-wrapper">
+            <div class="diploma-card" id="printable-diploma">
+                <div class="diploma-inner">
+                    <div class="diploma-crest">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <p class="diploma-institution">INTERNATIONAL UNIVERSITY RESEARCH COUNCIL</p>
+                    <h2 class="diploma-heading" id="cert-modal-title">CERTIFICATE OF PRESENTATION</h2>
+                    <p class="diploma-sub">This official academic credential is proudly conferred upon</p>
+                    <h3 class="diploma-recipient" id="cert-modal-name">Dr. Participant Name</h3>
+                    <p class="diploma-affiliation" id="cert-modal-affiliation">University Affiliation</p>
+                    <p class="diploma-citation">
+                        in recognition of outstanding scholarly contribution, intellectual rigor, and active participation in the
+                        <strong>International Conference on Research & Advanced Systems (ICRAS 2026)</strong>.
+                    </p>
+
+                    <div class="diploma-signatures">
+                        <div class="sig-block">
+                            <div class="sig-line">Prof. E. Vance</div>
+                            <span>General Conference Chair</span>
+                        </div>
+                        <div class="gold-seal">
+                            <span>OFFICIAL<br>SEAL<br>2026</span>
+                        </div>
+                        <div class="sig-block">
+                            <div class="sig-line">Dr. R. Kulkarni</div>
+                            <span>Dean of Research Affairs</span>
+                        </div>
+                    </div>
+
+                    <div class="diploma-meta">
+                        <span>CREDENTIAL ID: <strong id="cert-modal-code">IRC-2026-XXXX</strong></span>
+                        <span>DATE OF ISSUE: <strong id="cert-modal-date">2026-11-18</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diploma-actions no-print">
+                <button onclick="window.print()" class="btn-submit" style="width:auto; margin:0;">
+                    <span>Print / Save as PDF</span>
+                </button>
+                <button onclick="closeCertModal()" class="btn-ghost">Close Preview</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script>
+        let cachedCertificates = [];
+
+        const tabMeta = {
+            registration: {
+                title: 'Participant Registration',
+                subtitle: 'Enroll authors, peer review committee members, and conference attendees'
+            },
+            papers: {
+                title: 'Research Paper Submissions',
+                subtitle: 'Submit manuscripts and track session room assignments'
+            },
+            reviews: {
+                title: 'Peer Evaluation & Session Scheduling',
+                subtitle: 'Grade submitted papers and assign accepted research to presentation tracks'
+            },
+            certificates: {
+                title: 'Official Conference Certificates',
+                subtitle: 'Generate and print verifiable academic credentials for participants'
+            }
+        };
+
+        function switchTab(tabName, btnEl) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            if (btnEl) btnEl.classList.add('active');
+
+            document.getElementById('topbar-title').textContent = tabMeta[tabName].title;
+            document.getElementById('topbar-subtitle').textContent = tabMeta[tabName].subtitle;
+            document.getElementById('global-search').value = '';
+            filterCurrentTable();
+        }
+
+        function toggleSessionBox(show) {
+            document.getElementById('session-field-group').style.display = show ? 'block' : 'none';
+        }
+
+        function openSessionModal() {
+            document.getElementById('session-modal').classList.remove('hidden');
+        }
+
+        function closeSessionModal() {
+            document.getElementById('session-modal').classList.add('hidden');
+        }
+
+        function showToast(msg, isError = false) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `toast ${isError ? 'error' : 'success'}`;
+            setTimeout(() => t.className = 'toast hidden', 3200);
+        }
+
+        function getInitials(name) {
+            return (name || 'U')
+                .replace(/^(Dr\.|Prof\.|Mr\.|Ms\.)\s*/i, '')
+                .split(' ')
+                .map(n => n[0])
+                .join('')
+                .substring(0, 2)
+                .toUpperCase();
+        }
+
+        function filterCurrentTable() {
+            const q = document.getElementById('global-search').value.toLowerCase();
+            const activePanel = document.querySelector('.tab-panel.active');
+            if (!activePanel) return;
+            activePanel.querySelectorAll('tbody tr').forEach(row => {
+                if (row.classList.contains('empty-row')) return;
+                row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+            });
+        }
+
+        async function loadPortalData() {
+            try {
+                const res = await fetch('/api/data');
+                const data = await res.json();
+
+                cachedCertificates = data.certificates || [];
+                const authors = (data.participants || []).filter(p => p.role === 'Author');
+                const reviewers = (data.participants || []).filter(p => p.role === 'Reviewer');
+                const acceptedPapers = (data.papers || []).filter(p => p.status === 'Accepted');
+                const pendingPapers = (data.papers || []).filter(p => p.status === 'Submitted');
+
+                // Update KPI Cards & Sidebar Badges
+                document.getElementById('stat-participants').textContent = (data.participants || []).length;
+                document.getElementById('stat-role-breakdown').textContent = `${authors.length} Authors • ${reviewers.length} Reviewers`;
+                document.getElementById('stat-papers').textContent = (data.papers || []).length;
+                document.getElementById('stat-pending-papers').textContent = `${pendingPapers.length} awaiting evaluation`;
+                document.getElementById('stat-accepted').textContent = acceptedPapers.length;
+                document.getElementById('stat-sessions-count').textContent = `Across ${(data.sessions || []).length} presentation tracks`;
+                document.getElementById('stat-certificates').textContent = cachedCertificates.length;
+
+                document.getElementById('nav-count-participants').textContent = (data.participants || []).length;
+                document.getElementById('nav-count-papers').textContent = (data.papers || []).length;
+                document.getElementById('nav-count-reviews').textContent = (data.reviews || []).length;
+                document.getElementById('nav-count-certificates').textContent = cachedCertificates.length;
+
+                // 1. Participants Table
+                document.getElementById('tbody-participants').innerHTML = (data.participants || []).map(p => `
+                    <tr>
+                        <td><span class="mono-id">#${p.participant_id}</span></td>
+                        <td>
+                            <div class="user-cell">
+                                <div class="avatar ${(p.role || '').toLowerCase()}">${getInitials(p.full_name)}</div>
+                                <div>
+                                    <div class="primary-cell">${p.full_name}</div>
+                                    <div class="secondary-cell">${p.email}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="affiliation-text">${p.affiliation}</span></td>
+                        <td><span class="pill role-${(p.role || '').toLowerCase()}"><span class="dot"></span>${p.role}</span></td>
+                    </tr>
+                `).join('') || `<tr class="empty-row"><td colspan="4"><div class="empty-state">No participants registered yet. Use the form on the left to enroll delegates.</div></td></tr>`;
+
+                // 2. Papers Table
+                document.getElementById('tbody-papers').innerHTML = (data.papers || []).map(p => {
+                    const sessionDate = p.session_date ? String(p.session_date).split('T')[0] : '';
+                    return `
+                    <tr>
+                        <td><span class="mono-id">#${p.paper_id}</span></td>
+                        <td>
+                            <div class="primary-cell">${p.title}</div>
+                            <div class="secondary-cell"><span class="track-tag">${p.research_track}</span></div>
+                        </td>
+                        <td>
+                            <div class="primary-cell">${p.author_name}</div>
+                            <div class="secondary-cell">${p.author_affiliation || ''}</div>
+                        </td>
+                        <td><span class="pill status-${(p.status || '').toLowerCase()}"><span class="dot"></span>${p.status}</span></td>
+                        <td>
+                            ${p.session_title
+                                ? `<div class="session-box">
+                                     <strong>${p.session_title}</strong>
+                                     <span>${p.room_no} • ${sessionDate}</span>
+                                   </div>`
+                                : `<span class="unassigned-tag">Not Scheduled</span>`}
+                        </td>
+                    </tr>
+                `}).join('') || `<tr class="empty-row"><td colspan="5"><div class="empty-state">No research papers submitted yet.</div></td></tr>`;
+
+                // 3. Reviews Table
+                document.getElementById('tbody-reviews').innerHTML = (data.reviews || []).map(r => `
+                    <tr>
+                        <td><div class="primary-cell">${r.paper_title}</div></td>
+                        <td><div class="primary-cell">${r.reviewer_name}</div></td>
+                        <td><span class="score-badge">${r.score} / 10</span></td>
+                        <td><div class="remarks-cell">${r.comments || '-'}</div></td>
+                        <td><span class="pill status-${r.decision === 'Accept' ? 'accepted' : 'rejected'}"><span class="dot"></span>${r.decision}ed</span></td>
+                    </tr>
+                `).join('') || `<tr class="empty-row"><td colspan="5"><div class="empty-state">No peer evaluations recorded yet.</div></td></tr>`;
+
+                // 4. Certificates Table
+                document.getElementById('tbody-certificates').innerHTML = cachedCertificates.map((c, idx) => `
+                    <tr>
+                        <td><span class="code-badge">${c.certificate_code}</span></td>
+                        <td>
+                            <div class="primary-cell">${c.full_name}</div>
+                            <div class="secondary-cell">${c.affiliation}</div>
+                        </td>
+                        <td><span class="pill role-author">${c.certificate_type}</span></td>
+                        <td><span class="secondary-cell">${String(c.issue_date).split('T')[0]}</span></td>
+                        <td>
+                            <button type="button" class="btn-action" onclick="openCertModalByIndex(${idx})">
+                                View Diploma
+                            </button>
+                        </td>
+                    </tr>
+                `).join('') || `<tr class="empty-row"><td colspan="5"><div class="empty-state">No certificates issued yet.</div></td></tr>`;
+
+                // Populate Select Dropdowns
+                document.getElementById('select-author').innerHTML =
+                    '<option value="" disabled selected>Select Registered Author</option>' +
+                    authors.map(a => `<option value="${a.participant_id}">${a.full_name} (${a.affiliation})</option>`).join('');
+
+                document.getElementById('select-reviewer').innerHTML =
+                    '<option value="" disabled selected>Choose Reviewer</option>' +
+                    reviewers.map(r => `<option value="${r.participant_id}">${r.full_name} (${r.affiliation})</option>`).join('');
+
+                document.getElementById('select-paper').innerHTML =
+                    '<option value="" disabled selected>Choose Submitted Paper</option>' +
+                    (data.papers || []).map(p => `<option value="${p.paper_id}">#${p.paper_id} — ${p.title} (${p.status})</option>`).join('');
+
+                document.getElementById('select-session').innerHTML =
+                    '<option value="">Select Presentation Track & Room</option>' +
+                    (data.sessions || []).map(s => `<option value="${s.session_id}">${s.session_title} (${s.room_no})</option>`).join('');
+
+                document.getElementById('select-cert-participant').innerHTML =
+                    '<option value="" disabled selected>Choose Registered Participant</option>' +
+                    (data.participants || []).map(p => `<option value="${p.participant_id}">${p.full_name} — ${p.role}</option>`).join('');
+
+            } catch (err) {
+                console.error('Failed to load conference data:', err);
+            }
+        }
+
+        function bindForm(formId, endpoint, onSuccessCallback) {
+            document.getElementById(formId).addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = Object.fromEntries(new FormData(e.target).entries());
+                try {
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+                    const result = await res.json();
+                    if (res.ok) {
+                        showToast(result.message || 'Saved successfully');
+                        e.target.reset();
+                        if (onSuccessCallback) onSuccessCallback();
+                        loadPortalData();
+                    } else {
+                        showToast(result.error || 'Action failed', true);
+                    }
+                } catch (err) {
+                    showToast('Cannot reach server', true);
+                }
+            });
+        }
+
+        function openCertModalByIndex(idx) {
+            const cert = cachedCertificates[idx];
+            if (!cert) return;
+            openCertModal(cert);
+        }
+
+        function openCertModal(cert) {
+            document.getElementById('cert-modal-title').textContent = `CERTIFICATE OF ${(cert.certificate_type || '').toUpperCase()}`;
+            document.getElementById('cert-modal-name').textContent = cert.full_name;
+            document.getElementById('cert-modal-affiliation').textContent = cert.affiliation;
+            document.getElementById('cert-modal-code').textContent = cert.certificate_code;
+            document.getElementById('cert-modal-date').textContent = String(cert.issue_date).split('T')[0];
+            document.getElementById('cert-modal').classList.remove('hidden');
+        }
+
+        function closeCertModal() {
+            document.getElementById('cert-modal').classList.add('hidden');
+        }
+
+        bindForm('form-participant', '/api/participants');
+        bindForm('form-paper', '/api/papers');
+        bindForm('form-review', '/api/reviews', () => {
+            document.getElementById('score-display').textContent = '8 / 10';
+            toggleSessionBox(true);
+        });
+        bindForm('form-certificate', '/api/certificates');
+        bindForm('form-session', '/api/sessions', closeSessionModal);
+
+        loadPortalData();
+    </script>
+</body>
+</html>
